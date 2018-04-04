@@ -1,0 +1,15 @@
+Comandos Django
+
+django-admin createproject nome-projeto     #criar novo projeto django
+python manage.py createsuperuser            #criar novo super usuario no projeto django
+
+python manage.py makemigrations             #criar nova migracao do projeto com as atualizacoes feita
+python manage.py migrate                    #subir as novas migracoes para o banco de dados
+
+python manage.py runserver                  #rodar projeto Django
+python manage.py startapp nomedaapp         #criar nova aplicacao
+
+python manage.py shell                      #abre shell do Python
+
+python manage.py test                       #rodar testes do Django
+python manage.py test --verbosity=2         #rodar testes do Django mais detalhados (0 sem saida, 1 saida, 2 saida detalhada)

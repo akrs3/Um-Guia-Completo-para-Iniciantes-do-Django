@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from ..views import board_topics
 from ..models import Board
-
+from ..views import TopicListView
 
 
 class BoardTopicsTests(TestCase):
@@ -28,7 +28,8 @@ class BoardTopicsTests(TestCase):
     #Testando se Django esta retornando a view correta na chamada do url
     def test_board_topics_url_resolves_board_topics_view(self):
         view = resolve('/boards/1/')
-        self.assertEquals(view.func, board_topics)
+        #self.assertEquals(view.func, board_topics)
+        self.assertEquals(view.func.view_class, TopicListView)
     
     
     #Testando se o link de voltar para Home está pegando mesmo

@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from ..views import home
 from ..models import Board
-
+from ..views import BoardListView
 
 class HomeTests(TestCase):
     
@@ -23,8 +23,10 @@ class HomeTests(TestCase):
 
     #Testando se Django esta retornando a view correta na chamada do url
     def test_home_url_resolves_home_view(self):
-        view = resolve('/') #garante q o url / que é o raiz retorne a view home
-        self.assertEquals(view.func, home)
+        '''view = resolve('/') #garante q o url / que é o raiz retorne a view home
+        self.assertEquals(view.func, home)'''
+        view = resolve('/')
+        self.assertEquals(view.func.view_class, BoardListView)
 
     #método assertContains para testar se o corpo da resposta contém um determinado texto
     def test_home_view_contains_link_to_topics_page(self):

@@ -37,8 +37,9 @@
     </tbody>
   </table>
 
+  {% include 'includes/pagination.html' %}
   <!-- Renderizar a paginacao-->
-  {% if is_paginated %}
+  <!--{% if is_paginated %}
     <nav aria-label="Topics pagination" class="mb-4">
       <ul class="pagination">
         {% if page_obj.has_previous %}
@@ -77,7 +78,7 @@
         {% endif %}
       </ul>
     </nav>
-  {% endif %}
+  {% endif %}-->
 
   <!--
     Com View baseada em funcao

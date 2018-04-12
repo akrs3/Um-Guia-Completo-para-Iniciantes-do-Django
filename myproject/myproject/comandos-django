@@ -13,3 +13,93 @@ python manage.py shell                      #abre shell do Python
 
 python manage.py test                       #rodar testes do Django
 python manage.py test --verbosity=2         #rodar testes do Django mais detalhados (0 sem saida, 1 saida, 2 saida detalhada)
+
+
+
+obs: 
+- Views baseadas em Funcoes (FBV):
+Representacao mais simples, recebe objeto HttpResponse e retrona um HttpResponse
+
+- Views baseadas em classe (CBV):
+toda view definida como classe em Python
+É uma classe que envolve uma FBV. Sao otimas para extender e reutilizar codigo
+
+- Views genericas baseadas em classes (GCBV): (https://ccbv.co.uk/)
+CBVs internos q resolvem prob especificos como: listas de views, criacao, atualizacao e exclusao de views
+
+
+* Paginator
+
+--------------------
+    #Filtrando os topicos
+
+    from boards.models import Topic
+
+    # All the topics in the app
+    Topic.objects.count()
+    107
+
+    # Just the topics in the Django board
+    Topic.objects.filter(board__name='Django').count()
+    104
+
+    # Let's save this queryset into a variable to paginate it
+    queryset = Topic.objects.filter(board__name='Django').order_by('-last_updated')
+
+------------------------
+    #Usando o Paginator de fato
+    from django.core.paginator import Paginator
+
+    paginator = Paginator(queryset, 20)
+
+    # count the number of elements in the paginator
+    paginator.count
+    104
+
+    # total number of pages
+    # 104 elements, paginating 20 per page gives you 6 pages
+    # where the last page will have only 4 elements
+    paginator.num_pages
+    6
+
+    # range of pages that can be used to iterate and create the
+    # links to the pages in the template
+    paginator.page_range
+    range(1, 7)
+
+    # returns a Page instance
+    paginator.page(2)
+    <Page 2 of 6>
+
+    page = paginator.page(2)
+
+    type(page)
+    django.core.paginator.Page
+
+    type(paginator)
+    django.core.paginator.Paginator
+
+
+
+    page = paginator.page(1)
+
+    # Check if there is another page after this one
+    page.has_next()
+    True
+
+    # If there is no previous page, that means this one is the first page
+    page.has_previous()
+    False
+
+    page.has_other_pages()
+    True
+
+    page.next_page_number()
+    2
+
+    # Take care here, since there is no previous page,
+    # if we call the method `previous_page_number() we will get an exception:
+    page.previous_page_number()
+    EmptyPage: That page number is less than 1
+
+

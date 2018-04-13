@@ -22,7 +22,7 @@ def home(request):
 
 def board_topics(request, pk):
     '''board = get_object_or_404(Board, pk=pk)
-    to'ics = board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+    topics = board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
     return render(request, 'topics.html', {'board': board, 'topics': topics})'''
 
     board = get_object_or_404(Board, pk=pk)

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import Truncator
+from django.utils.html import mark_safe
+from markdown import markdown
 
 class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -37,6 +39,10 @@ class Post(models.Model):
     updated_by = models.ForeignKey(User, null=True, related_name='+')
     #definir o related_name como '+' diz p o Django nao fazer o relacionamento reverso
     
+    #instruindo a checar os caracteres especiais e depois os marcados da entrada do usuário, so depois marca string de siada como segura
+    def get_message_as_markdown(self):
+        return mark_safe(markdown(self.message, safe_mode='escape'))
+
     def __str__(self):
         truncated_message = Truncator(self.message)
         return truncated_message.chars(30)
